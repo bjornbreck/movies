@@ -1,4 +1,4 @@
-import * as ActionTypes from "../constants/actionTypes";
+import * as ActionTypes from "../../constants/actionTypes";
 import * as ActionCreators from "./nodes";
 import mockFetch from "cross-fetch";
 

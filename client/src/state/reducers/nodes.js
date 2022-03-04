@@ -1,4 +1,4 @@
-import {CHECK_NODE_STATUS_START, CHECK_NODE_STATUS_SUCCESS, CHECK_NODE_STATUS_FAILURE} from '../constants/actionTypes';
+import {CHECK_NODE_STATUS_START, CHECK_NODE_STATUS_SUCCESS, CHECK_NODE_STATUS_FAILURE} from '../../constants/actionTypes';
 import initialState from './initialState';
 
 export default function nodesReducer(state = initialState().nodes, action) {

@@ -1,4 +1,4 @@
-import configureStore from "./store/configureStore";
+import configureStore from "./state/store/configureStore";
 import Root from "./components/Root";
 import "./styles/styles.css";
 

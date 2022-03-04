@@ -1,4 +1,4 @@
-import * as ActionTypes from '../constants/actionTypes';
+import * as ActionTypes from '../../constants/actionTypes';
 
 import configureStore from './configureStore';
 

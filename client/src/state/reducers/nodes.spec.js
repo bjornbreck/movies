@@ -1,4 +1,4 @@
-import * as ActionTypes from '../constants/actionTypes';
+import * as ActionTypes from '../../constants/actionTypes';
 import reducer from './nodes';
 import initialState from './initialState';
 

@@ -1,5 +1,5 @@
 import fetch from "cross-fetch";
-import * as types from "../constants/actionTypes";
+import * as types from "../../constants/actionTypes";
 
 const checkNodeStatusStart = (node) => {
   return {

@@ -14,8 +14,8 @@ import Status from "./Status";
 import NodeEmptyContent from "./NodeEmptyContent";
 
 const Node = ({ movie, expanded, toggleNodeExpanded }) => {
-  const nodeTitle = movie.loading ? 'Loading' : !movie.online ? 'Unkown' : movie.title;
-  const nodeId = movie.loading ? 'Loading' : !movie.id ? 'Unkown' : movie.id;
+  const nodeTitle = movie.loading ? 'Loading' : !movie.online ? 'Unknown' : movie.title;
+  const nodeId = movie.loading ? 'Loading' : !movie.id ? 'Unknown' : movie.id;
 
   const classes = useStyles();
   return (

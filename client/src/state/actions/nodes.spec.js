@@ -12,13 +12,13 @@ describe("Actions", () => {
     mockFetch.mockClear();
   });
 
-  const node = {
+  const movie = {
     id: "anchorman",
     online: false,
-    title: null,
+    title: 'anchorman',
   };
 
-  it("should fetch the node status", async () => {
+  it("should fetch the movie status", async () => {
     mockFetch.mockReturnValueOnce(
       Promise.resolve({
         status: 200,
@@ -27,37 +27,42 @@ describe("Actions", () => {
         },
       })
     );
-    await ActionCreators.checkNodeStatus(node)(dispatch);
+    await ActionCreators.checkNodeStatus(movie)(dispatch);
     const expected = [
       {
         type: ActionTypes.CHECK_NODE_STATUS_START,
-        node,
+        movie,
+        isLoading: true
       },
       {
         type: ActionTypes.CHECK_NODE_STATUS_SUCCESS,
-        node,
-        res: { title: "Anchorman" },
+        movie,
+        isLoading: undefined,
+        action: {resTitle: { title: 'title'}},
+        res: { title: "Anchorman" }
       },
     ];
 
     expect(dispatch.mock.calls.flat()).toEqual(expected);
   });
 
-  it("should fail to fetch the node status", async () => {
+  it("should fail to fetch the movie status", async () => {
     mockFetch.mockReturnValueOnce(
       Promise.resolve({
         status: 400,
       })
     );
-    await ActionCreators.checkNodeStatus(node)(dispatch);
+    await ActionCreators.checkNodeStatus(movie)(dispatch);
     const expected = [
       {
         type: ActionTypes.CHECK_NODE_STATUS_START,
-        node,
+        movie,
+        isLoading: true
       },
       {
         type: ActionTypes.CHECK_NODE_STATUS_FAILURE,
-        node,
+        movie,
+        isLoading: false
       },
     ];
 

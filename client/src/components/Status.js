@@ -7,7 +7,7 @@ function Status({ online, loading }) {
   const classes = useStyles({ online, loading });
   return (
     <Box display="flex" alignItems="center">
-      <span className={classes.dot}></span>
+      <span className={classes.dot} />
       <span className={classes.text}>
         {loading ? "LOADING" : online ? "ONLINE" : "OFFLINE"}
       </span>

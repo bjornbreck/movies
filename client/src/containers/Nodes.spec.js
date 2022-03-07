@@ -4,7 +4,7 @@ import configureMockStore from "redux-mock-store";
 import thunk from 'redux-thunk';
 import { Provider } from "react-redux";
 import { create } from "react-test-renderer";
-import ConnectedNodes, { NodesWrapper } from "./Nodes";
+import ConnectedNodes, { NodeList } from "./nodeList";
 import Node from "../components/Node";
 
 describe("<Nodes />", () => {
@@ -12,7 +12,7 @@ describe("<Nodes />", () => {
     checkNodeStatuses: jest.fn()
   };
 
-  const nodes = {
+  const movies = {
     list: [
       {
         id: 'taxi-driver',
@@ -31,9 +31,9 @@ describe("<Nodes />", () => {
 
   it("should contain <Node />", () => {
     const wrapper = shallow(
-      <NodesWrapper
+      <NodeList
         actions={actions}
-        nodes={nodes}
+        movies={movies}
       />
     );
 
@@ -42,7 +42,7 @@ describe("<Nodes />", () => {
 
   it("should match snapshot", () => {
     const middlewares = [thunk];
-    const store = configureMockStore(middlewares)({nodes});
+    const store = configureMockStore(middlewares)({movies});
     const component = create(
       <Provider store={store}>
         <ConnectedNodes />

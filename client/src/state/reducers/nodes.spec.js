@@ -5,13 +5,39 @@ import initialState from './initialState';
 
 describe('Reducers::Nodes', () => {
   const getInitialState = () => {
-    return initialState().nodes;
+    return initialState().movies;
   };
+
+  const quotesArray = [
+    {
+      id: 1,
+      type: "blocks",
+      attributes: {
+        index: 1,
+        timestamp: 1530674152,
+        data: "You",
+        "previous-hash": "KsmmdGrKVDr43/OYlM/oFzr7oh6wHG+uM9UpRyIoVe8=",
+        hash: "udfJLmh13UNAxG4F/1on07OMN1K1vCuaTYn9H2XGiX0="
+      }
+    },
+    {
+      id: 1,
+      type: "blocks",
+      attributes: {
+        index: 1,
+        timestamp: 1530674152,
+        data: "You",
+        "previous-hash": "KsmmdGrKVDr43/OYlM/oFzr7oh6wHG+uM9UpRyIoVe8=",
+        hash: "udfJLmh13UNAxG4F/1on07OMN1K1vCuaTYn9H2XGiX0="
+      }
+    }
+  ]
 
   const nodeA = {
     id: 'anchorman',
     online: false,
-    title: null
+    title: null,
+    quotes: Array
   };
 
   const nodeB = {
@@ -31,7 +57,7 @@ describe('Reducers::Nodes', () => {
     const appState = {
       list: [nodeA, nodeB]
     };
-    const action = { type: ActionTypes.CHECK_NODE_STATUS_START, node: nodeA };
+    const action = { type: ActionTypes.CHECK_NODE_STATUS_START, movie: nodeA };
     const expected = {
       list: [
         {
@@ -56,6 +82,7 @@ describe('Reducers::Nodes', () => {
           ...nodeA,
           online: true,
           title: 'alpha',
+          quotes: quotesArray,
           loading: false
         },
         nodeB

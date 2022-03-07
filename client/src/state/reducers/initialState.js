@@ -1,9 +1,5 @@
 const initialState = () => ({
-  /*
-  * todo shouldn't this be an object of type node -> list -> array -> movie object {id, online, title, loading}?
-   * then the server/data/movies would fill this all in on response?
-  * */
-  nodes: {
+  movies: {
     list: [
       {
         id: "taxi-driver",

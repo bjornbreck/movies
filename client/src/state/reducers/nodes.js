@@ -1,12 +1,12 @@
-import {CHECK_NODE_STATUS_START, CHECK_NODE_STATUS_SUCCESS, CHECK_NODE_STATUS_FAILURE} from '../../constants/actionTypes';
+import {CHECK_NODE_STATUS_START, CHECK_NODE_STATUS_SUCCESS, CHECK_NODE_STATUS_FAILURE, GET_NODE_DATA} from '../../constants/actionTypes';
 import initialState from './initialState';
 
-export default function nodesReducer(state = initialState().nodes, action) {
+export default function nodesReducer(state = initialState().movies, action) {
   let list, nodeIndex;
   switch (action.type) {
     case CHECK_NODE_STATUS_START:
       list = state.list;
-      nodeIndex = state.list.findIndex(p => p.id === action.node.id);
+      nodeIndex = state.list.findIndex(p => p.id === action.movie.id);
       if (nodeIndex >= 0) {
         list = [
           ...state.list.slice(0, nodeIndex),
@@ -21,20 +21,17 @@ export default function nodesReducer(state = initialState().nodes, action) {
         ...state,
         list
       };
-      // Fixme CHECK_NODE_STATUS seems like it is only to check the status of a node if it's online rather than once
-      // Fixme it's verified to save node data -- could be updated to fetch node with status included in payload
     case CHECK_NODE_STATUS_SUCCESS:
       list = state.list;
-      nodeIndex = state.list.findIndex(p => p.id === action.node.id);
+      nodeIndex = state.list.findIndex(p => p.id === action.movie.id);
       if (nodeIndex >= 0) {
-        console.log('action.res => ', action);
         list = [
           ...state.list.slice(0, nodeIndex),
           {
             ...state.list[nodeIndex],
             online: true,
-            title: action.resTitle.title,
-            nodes: action.resBlocks,
+            title: action.resTitle?.title,
+            quotes: action.resBlocks,
             loading: false
           },
           ...state.list.slice(nodeIndex + 1)
@@ -46,7 +43,7 @@ export default function nodesReducer(state = initialState().nodes, action) {
       };
     case CHECK_NODE_STATUS_FAILURE:
       list = state.list;
-      nodeIndex = state.list.findIndex(p => p.id === action.node.id);
+      nodeIndex = state.list.findIndex(p => p.id === action.movie.id);
       if (nodeIndex >= 0) {
         list = [
           ...state.list.slice(0, nodeIndex),

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-named-as-default */
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import NodeList from "../containers/nodeList";

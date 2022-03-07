@@ -16,8 +16,7 @@ export class NodeList extends React.Component {
   }
 
   componentDidMount() {
-    console.log('this.props.nodes => ', this.props.nodes);
-    this.props.actions.checkNodeStatuses(this.props.nodes.list);
+    this.props.actions.checkNodeStatuses(this.props.movies.list);
   }
 
   toggleNodeExpanded(node) {
@@ -28,17 +27,17 @@ export class NodeList extends React.Component {
   }
 
   render() {
-    const { nodes } = this.props;
+    const { movies } = this.props;
     return (
       <Box paddingTop={7}>
         <Typography variant="h4" component="h1">
-          <strong style={{ color: "#000" }}>Nodes</strong>
+          <strong style={{ color: "#000" }}>Movies</strong>
         </Typography>
-        {nodes.list.map((node) => (
+        {movies.list.map((movie) => (
           <Node
-            node={node}
-            key={node.id}
-            expanded={node.id === this.state.expandedNodeID}
+            movie={movie}
+            key={movie.id}
+            expanded={movie.id === this.state.expandedNodeID}
             toggleNodeExpanded={this.toggleNodeExpanded}
           />
         ))}
@@ -49,12 +48,12 @@ export class NodeList extends React.Component {
 
 NodeList.propTypes = {
   actions: PropTypes.object.isRequired,
-  nodes: PropTypes.object.isRequired,
+  movies: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    nodes: state.nodes,
+    movies: state.movies,
   };
 }
 

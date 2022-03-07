@@ -1,58 +1,58 @@
 import fetch from "cross-fetch";
 import * as types from "../../constants/actionTypes";
 
-const checkNodeStatusStart = (node) => {
+const checkNodeStatusStart = (movie, isLoading) => {
   return {
     type: types.CHECK_NODE_STATUS_START,
-    node,
+    movie,
+    isLoading: isLoading
   };
 };
 
-const checkNodeStatusSuccess = (node, resTitle, resBlocks) => {
+const checkNodeStatusSuccess = (movie, resTitle, resBlocks, isLoading) => {
   return {
     type: types.CHECK_NODE_STATUS_SUCCESS,
-    node,
+    movie,
     resTitle,
     resBlocks,
+    isLoading: isLoading
   };
 };
 
-const checkNodeStatusFailure = (node) => {
+const checkNodeStatusFailure = (movie, isLoading) => {
   return {
     type: types.CHECK_NODE_STATUS_FAILURE,
-    node,
+    movie,
+    isLoading: isLoading
   };
 };
 
-export function checkNodeStatus(node) {
+export function checkNodeStatus(movie) {
   return async (dispatch) => {
     try {
-      dispatch(checkNodeStatusStart(node));
-      const res = await fetch(`http://localhost:3001/api/${node.id}`);
-      const res2 = await fetch(`http://localhost:3001/api/${node.id}/blocks`);
-      // console.log('res => ', res.json());
+      dispatch(checkNodeStatusStart(movie, true));
+      const res = await fetch(`http://localhost:3001/api/${movie.id}`);
+      const res2 = await fetch(`http://localhost:3001/api/${movie.id}/blocks`);
 
       if (res.status >= 400) {
-        dispatch(checkNodeStatusFailure(node));
+        dispatch(checkNodeStatusFailure(movie, false));
         return;
       }
 
       const jsonTitle = await res.json();
       const jsonBlocks = await res2.json();
-      console.log('json2 => ', jsonBlocks);
 
-      // dispatch(checkNodeStatusSuccess(node, json.blocks, json2));
-      dispatch(checkNodeStatusSuccess(node, jsonTitle, jsonBlocks.blocks));
+      dispatch(checkNodeStatusSuccess(movie, jsonTitle, jsonBlocks.blocks, false));
     } catch (err) {
-      dispatch(checkNodeStatusFailure(node));
+      dispatch(checkNodeStatusFailure(movie));
     }
   };
 }
 
 export function checkNodeStatuses(list) {
   return (dispatch) => {
-    list.forEach((node) => {
-      dispatch(checkNodeStatus(node));
+    list.forEach((movie) => {
+      dispatch(checkNodeStatus(movie));
     });
   };
 }

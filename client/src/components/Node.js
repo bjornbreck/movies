@@ -11,15 +11,19 @@ import {
 } from "@material-ui/core";
 import colors from "../constants/colors";
 import Status from "./Status";
+import NodeEmptyContent from "./NodeEmptyContent";
 
-const Node = ({ node, expanded, toggleNodeExpanded }) => {
+const Node = ({ movie, expanded, toggleNodeExpanded }) => {
+  const nodeTitle = movie.loading ? 'Loading' : !movie.online ? 'Unkown' : movie.title;
+  const nodeId = movie.loading ? 'Loading' : !movie.id ? 'Unkown' : movie.id;
+
   const classes = useStyles();
   return (
     <Accordion
       elevation={3}
       className={classes.root}
       expanded={expanded}
-      onChange={() => toggleNodeExpanded(node)}
+      onChange={() => toggleNodeExpanded(movie)}
     >
       <AccordionSummary
         className={classes.summary}
@@ -33,20 +37,30 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
         <Box className={classes.summaryContent}>
           <Box>
             <Typography variant="h5" className={classes.heading}>
-              {node.title || "Unknown"}
+              {nodeTitle}
             </Typography>
             <Typography
               variant="subtitle1"
               className={classes.secondaryHeading}
             >
-              {node.id}
+              {nodeId}
             </Typography>
           </Box>
-          <Status loading={node.loading} online={node.online} />
+          <Status loading={movie.loading} online={movie.online} />
         </Box>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>Blocks go here</Typography>
+        <Box className={classes.itemRow}>
+          {!movie.online && (
+            <NodeEmptyContent movie={movie} />
+          )}
+          {movie.quotes && movie.quotes.map((item) => (
+            <Box className={classes.itemCol}>
+              <Typography className={classes.movieQuoteId}>{item.id}</Typography>
+              <Typography>{item.attributes.data}</Typography>
+            </Box>
+          ))}
+        </Box>
       </AccordionDetails>
     </Accordion>
   );
@@ -90,16 +104,34 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     color: colors.text,
     lineHeight: 1.5,
+    textTransform: 'capitalize'
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(14),
     color: colors.faded,
     lineHeight: 2,
   },
+  itemRow: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+  },
+  itemCol: {
+    backgroundColor: '#DBDBDB',
+    margin: 10,
+    padding: 10,
+    borderRadius: 5,
+  },
+  offlineMovieTItle: {
+    textTransform: 'capitalize'
+  },
+  movieQuoteId: {
+    color: 'blue'
+  },
 }));
 
 Node.propTypes = {
-  node: PropTypes.shape({
+  movie: PropTypes.shape({
     id: PropTypes.string,
     online: PropTypes.bool,
     title: PropTypes.string,

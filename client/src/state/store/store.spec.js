@@ -3,7 +3,7 @@ import * as ActionTypes from '../../constants/actionTypes';
 import configureStore from './configureStore';
 
 describe('Store', () => {
-  const nodes = {
+  const movies = {
     list: [
       { id: 'a.com', online: false, title: null, loading: false },
       { id: 'b.com', online: false, title: null, loading: false },
@@ -16,17 +16,17 @@ describe('Store', () => {
   afterAll(() => {});
 
   it('should display results when necessary data is provided', () => {
-    const store = configureStore({nodes});
+    const store = configureStore({movies});
 
     const actions = [
-      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, node: nodes.list[0], res: {title: 'alpha'} },
-      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, node: nodes.list[1], res: {title: 'beta'} },
-      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, node: nodes.list[0], res: {title: 'gamma'} },
-      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, node: nodes.list[2], res: {title: 'delta'} },
-      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, node: nodes.list[1], res: {title: 'epsilon'} },
-      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, node: nodes.list[0], res: {title: 'zeta'} },
-      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, node: nodes.list[0], res: {title: 'eta'} },
-      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, node: nodes.list[0], res: {title: 'theta'} },
+      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, movie: movies.list[0], res: {title: 'alpha'} },
+      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, movie: movies.list[1], res: {title: 'beta'} },
+      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, movie: movies.list[0], res: {title: 'gamma'} },
+      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, movie: movies.list[2], res: {title: 'delta'} },
+      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, movie: movies.list[1], res: {title: 'epsilon'} },
+      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, movie: movies.list[0], res: {title: 'zeta'} },
+      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, movie: movies.list[0], res: {title: 'eta'} },
+      { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, movie: movies.list[0], res: {title: 'theta'} },
     ];
     actions.forEach(action => store.dispatch(action));
 
@@ -40,6 +40,6 @@ describe('Store', () => {
       ]
     };
 
-    expect(actual.nodes).toEqual(expected);
+    expect(actual.movies).toEqual(expected);
   });
 });
